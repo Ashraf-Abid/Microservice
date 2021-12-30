@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: productmetadata
+  labels:
+    name: productpodlebel
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: productpodlebel
+  template:
+    metadata:
+      labels:
+        name: productpodlebel
+    spec:
+      containers:
+      - name: productcontainer
+        image: ashraf1234/micro2
+        ports:
+        - containerPort: 8000
