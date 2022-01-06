@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mongo
+spec:
+  serviceName: 'mongoservice'
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongodbpodlebel
+  template:
+    metadata:
+      labels:
+        app: mongodbpodlebel
+    spec:
+      containers:
+      - image: mongo
+        imagePullPolicy: Always
+        volumeMounts:
+          - mountPath: /data/db
+            name: abc
+        name: mongo
+        ports:
+          - containerPort: 27017
+        env:
+          - name: MONGO_INITDB_ROOT_USERNAME
+            value: 'dummy'
+          - name: MONGO_INITDB_ROOT_PASSWORD
+            value: 'dummy'
+  volumeClaimTemplates:
+    - metadata:
+        name: abc
+      spec:
+        accessModes: ['ReadWriteOnce']
+        resources:
+          requests:
+            storage: 2Gi
+  
+  
