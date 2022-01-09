@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongoservice
+spec:
+  selector:
+    app: mongodbpodlebel
+  ports:
+    - protocol: TCP
+      port: 27017
+      targetPort: 27017

@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: customermetadata
+  labels:
+    name: customerpodlebel
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: customerpodlebel
+  template:
+    metadata:
+      labels:
+        name: customerpodlebel
+    spec:
+      containers:
+      - name: customercontainer
+        image: ashraf1234/micro1
+        ports:
+        - containerPort: 8080
+        envFrom:
+        - secretRef:
+           name: mysecret
+        - configMapRef:
+           name: myconfig
+
