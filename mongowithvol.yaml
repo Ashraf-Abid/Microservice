@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: monogmetadata
+  labels:
+    name: mongodbpodlebel
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: mongodbpodlebel
+  template:
+    metadata:
+      labels:
+        name: mongodbpodlebel
+    spec:
+      volumes:
+        - name: volume
+          hostPath:
+            path: /mnt/c/Users/ASUS/Desktop/mongo-conn
+      containers:
+      - name: mongodbcontainer
+        image: mongo
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 27017
+        volumeMounts:
+          - mountPath: /data/db
+            name: volume
+        env:
+        - name: MONGO_INITDB_ROOT_USERNAME
+          value: "dummy"
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          value: "dummy"
